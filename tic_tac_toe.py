@@ -92,6 +92,7 @@ def game():
         if count == 9:
             print("\nGame Over.\n")                
             print("It's a Tie!!")
+            break
 
         # Now we have to change the player after every move.
         if turn =='X':
