@@ -1,5 +1,6 @@
 #Implementation of Two Player Tic-Tac-Toe game in Python.
-
+#Importing regular expression library to validate the input.
+import re
 ''' We will make the board using dictionary 
     in which keys will be the location(i.e : top-left,mid-right,etc.)
     and initialliy it's values will be empty space and then after every move 
@@ -36,62 +37,65 @@ def game():
         printBoard(gameBoard)
         print(turn + " Choose your move")
 
-        move = input()        
+        move = input()
+        validateInput = re.search("[1-9]",move)
+        if validateInput and int(move) < 10:
+            if gameBoard[move] == ' ':
+                gameBoard[move] = turn
+                count += 1
+            else:
+           	    print("That place is already filled.\nMove to which place?")
+           	    continue
+        	# Now we will check if player X or O has won,for every move after 5 moves. 
+            if count >= 5:
+                if gameBoard['7'] == gameBoard['8'] == gameBoard['9'] != ' ': # across the top
+                    printBoard(gameBoard)
+                    print("\nGame Over.\n")                
+                    print(" **** " +turn + " won. ****")                
+                    break
+                elif gameBoard['4'] == gameBoard['5'] == gameBoard['6'] != ' ': # across the middle
+                    printBoard(gameBoard)
+                    print("\nGame Over.\n")                
+                    print(" **** " +turn + " won. ****")
+                    break
+                elif gameBoard['1'] == gameBoard['2'] == gameBoard['3'] != ' ': # across the bottom
+                    printBoard(gameBoard)
+                    print("\nGame Over.\n")                
+                    print(" **** " +turn + " won. ****")
+                    break
+                elif gameBoard['1'] == gameBoard['4'] == gameBoard['7'] != ' ': # down the left side
+                    printBoard(gameBoard)
+                    print("\nGame Over.\n")                
+                    print(" **** " +turn + " won. ****")
+                    break
+                elif gameBoard['2'] == gameBoard['5'] == gameBoard['8'] != ' ': # down the middle
+                    printBoard(gameBoard)
+                    print("\nGame Over.\n")                
+                    print(" **** " +turn + " won. ****")
+                    break
+                elif gameBoard['3'] == gameBoard['6'] == gameBoard['9'] != ' ': # down the right side
+                    printBoard(gameBoard)
+                    print("\nGame Over.\n")                
+                    print(" **** " +turn + " won. ****")
+                    break 
+                elif gameBoard['7'] == gameBoard['5'] == gameBoard['3'] != ' ': # diagonal
+                    printBoard(gameBoard)
+                    print("\nGame Over.\n")                
+                    print(" **** " +turn + " won. ****")
+                    break
+                elif gameBoard['1'] == gameBoard['5'] == gameBoard['9'] != ' ': # diagonal
+                    printBoard(gameBoard)
+                    print("\nGame Over.\n")                
+                    print(" **** " +turn + " won. ****")
+                    break 
 
-        if gameBoard[move] == ' ':
-            gameBoard[move] = turn
-            count += 1
+        	# If neither X nor O wins and the board is full, we'll declare the result as 'tie'.
+            if count == 9:
+                print("\nGame Over.\n")                
+                print("It's a Tie!!")
+                break
         else:
-            print("That place is already filled.\nMove to which place?")
-            continue
-
-        # Now we will check if player X or O has won,for every move after 5 moves. 
-        if count >= 5:
-            if gameBoard['7'] == gameBoard['8'] == gameBoard['9'] != ' ': # across the top
-                printBoard(gameBoard)
-                print("\nGame Over.\n")                
-                print(" **** " +turn + " won. ****")                
-                break
-            elif gameBoard['4'] == gameBoard['5'] == gameBoard['6'] != ' ': # across the middle
-                printBoard(gameBoard)
-                print("\nGame Over.\n")                
-                print(" **** " +turn + " won. ****")
-                break
-            elif gameBoard['1'] == gameBoard['2'] == gameBoard['3'] != ' ': # across the bottom
-                printBoard(gameBoard)
-                print("\nGame Over.\n")                
-                print(" **** " +turn + " won. ****")
-                break
-            elif gameBoard['1'] == gameBoard['4'] == gameBoard['7'] != ' ': # down the left side
-                printBoard(gameBoard)
-                print("\nGame Over.\n")                
-                print(" **** " +turn + " won. ****")
-                break
-            elif gameBoard['2'] == gameBoard['5'] == gameBoard['8'] != ' ': # down the middle
-                printBoard(gameBoard)
-                print("\nGame Over.\n")                
-                print(" **** " +turn + " won. ****")
-                break
-            elif gameBoard['3'] == gameBoard['6'] == gameBoard['9'] != ' ': # down the right side
-                printBoard(gameBoard)
-                print("\nGame Over.\n")                
-                print(" **** " +turn + " won. ****")
-                break 
-            elif gameBoard['7'] == gameBoard['5'] == gameBoard['3'] != ' ': # diagonal
-                printBoard(gameBoard)
-                print("\nGame Over.\n")                
-                print(" **** " +turn + " won. ****")
-                break
-            elif gameBoard['1'] == gameBoard['5'] == gameBoard['9'] != ' ': # diagonal
-                printBoard(gameBoard)
-                print("\nGame Over.\n")                
-                print(" **** " +turn + " won. ****")
-                break 
-
-        # If neither X nor O wins and the board is full, we'll declare the result as 'tie'.
-        if count == 9:
-            print("\nGame Over.\n")                
-            print("It's a Tie!!")
+            print("Invalid input")
             break
 
         # Now we have to change the player after every move.
